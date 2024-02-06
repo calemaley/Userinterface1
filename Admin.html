@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-image: url('C:/Users/nepha/Downloads/logo.png.png'); 
+            background-size: cover;
+            background-position: center;
+            color: #fff;
+        }
+        .container {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: rgba(0, 0, 0, 0.5); 
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+        .widget {
+            margin-bottom: 20px;
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.1); 
+            border-radius: 10px;
+        }
+        h1, h2 {
+            text-align: center;
+        }
+        .number {
+            font-size: 2em;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+        form {
+            margin-top: 20px;
+        }
+        input[type="text"], input[type="number"], textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        input[type="submit"], input[type="button"] {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        input[type="submit"]:hover, input[type="button"]:hover {
+            background-color: #45a049;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+        .review {
+            margin-bottom: 10px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .response {
+            font-style: italic;
+            margin-top: 5px;
+            color: #888;
+        }
+        .action-buttons {
+            margin-top: 10px;
+        }
+        .report {
+            margin-top: 20px;
+            padding: 20px;
+            background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+            border-radius: 10px;
+        }
+        .report h2 {
+            color: #fff;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .report-buttons {
+            text-align: center;
+        }
+        .report-buttons input[type="button"] {
+            margin-right: 10px;
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .report-buttons input[type="button"]:hover {
+            background-color: #45a049;
+        }
+        .notification {
+            background-color: #2196F3;
+            color: white;
+            padding: 15px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+        }
+        .content-management {
+            margin-top: 20px;
+        }
+        .content-management h2 {
+            margin-bottom: 10px;
+        }
+        .settings {
+            margin-top: 20px;
+        }
+        .settings h2 {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Dashboard</h1>
+    
+    <div class="widget">
+        <h2>Service Requests</h2>
+        <div class="number" id="serviceRequests">10</div>
+    </div>
+    
+    <div class="widget">
+        <h2>Revenue Generated</h2>
+        <div class="number" id="revenue">$1000</div>
+    </div>
+    
+    <div class="widget">
+        <h2>Active Providers</h2>
+        <div class="number" id="activeProviders">5</div>
+    </div>
+    
+    <div class="widget">
+        <h2>Customer Feedback</h2>
+        <div class="number" id="customerFeedback">4.5/5</div>
+    </div>
+    
+    <div class="widget">
+        <h2>Service Management</h2>
+        <form id="serviceForm">
+            <input type="text" placeholder="Service Category" id="categoryInput">
+            <input type="text" placeholder="Service Description" id="descriptionInput">
+            <input type="number" placeholder="Price" id="priceInput">
+            <input type="text" placeholder="Additional Options" id="optionsInput">
+            <input type="submit" value="Add Service">
+        </form>
+    </div>
+    
+    <div class="widget">
+        <h2>Service Provider Management</h2>
+        <form id="providerForm">
+            <input type="text" placeholder="Provider Name" id="nameInput">
+            <input type="text" placeholder="Specialization" id="specializationInput">
+            <input type="text" placeholder="Email" id="emailInput">
+            <input type="text" placeholder="Phone Number" id="phoneInput">
+            <input type="submit" value="Add Provider">
+        </form>
+        <h3>Provider List</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Specialization</th>
+                    <th>Email</th>
+                    <th>Phone Number</th>
+                </tr>
+            </thead>
+            <tbody id="providerList">
+               
+            </tbody>
+        </table>
+    </div>
+    
+    <div class="widget">
+        <h2>Booking Management</h2>
+        <h3>Booking Requests</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>User</th>
+                    <th>Service</th>
+                    <th>Date</th>
+                    <th>Time</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody id="bookingList">
+                <tr>
+                    <td>John Doe</td>
+                    <td>Plumbing</td>
+                    <td>2024-02-12</td>
+                    <td>09:00 AM</td>
+                    <td class="status">Pending</td>
+                    <td><input type="button" value="Approve" onclick="approveBooking(this)"><input type="button" value="Reject" onclick="rejectBooking(this)"></td>
+                </tr>
+               
+            </tbody>
+        </table>
+    </div>
+    
+    <div class="widget">
+        <h2>Payment Management</h2>
+        <div class="payment-button" id="paypalButton">
+            <input type="button" value="PayPal" onclick="handlePayment('PayPal')">
+        </div>
+        <div class="payment-button" id="creditCardButton">
+            <input type="button" value="Credit Card" onclick="handlePayment('Credit Card')">
+        </div>
+        <div class="payment-button" id="venmoButton">
+            <input type="button" value="Venmo" onclick="handlePayment('Venmo')">
+        </div>
+    </div>
+
+    <div class="widget">
+        <h2>Review Management</h2>
+        <div id="reviews">
+            
+        </div>
+    </div>
+
+    <div class="widget">
+        <h2>Analytics & Reporting</h2>
+        <div class="report">
+            <h2>Generate Reports</h2>
+            <div class="report-buttons">
+                <input type="button" value="Generate Service Report" onclick="generateServiceReport()">
+                <input type="button" value="Generate Revenue Report" onclick="generateRevenueReport()">
+                <input type="button" value="Generate Feedback Report" onclick="generateFeedbackReport()">
+            </div>
+        </div>
+    </div>
+
+    <div class="widget">
+        <h2>Notification System</h2>
+        <form id="notificationForm">
+            <textarea placeholder="Enter notification message..." id="notificationMessage" rows="4"></textarea>
+            <select id="recipientType">
+                <option value="customer">Customer</option>
+                <option value="provider">Service Provider</option>
+            </select>
+            <input type="submit" value="Send Notification">
+        </form>
+    </div>
+    
+    <div id="notifications">
+        
+    </div>
+
+    <div class="widget content-management">
+        <h2>Content Management</h2>
+        <h3>Update Homepage</h3>
+        <form id="homepageForm">
+            <textarea placeholder="Enter content for the homepage..." id="homepageContent" rows="4"></textarea>
+            <input type="submit" value="Update Homepage">
+        </form>
+        <h3>Create Blog Post/Article</h3>
+        <form id="blogForm">
+            <input type="text" placeholder="Title" id="blogTitle">
+            <textarea placeholder="Enter article content..." id="blogContent" rows="4"></textarea>
+            <input type="submit" value="Create Post">
+        </form>
+        <h3>Manage FAQs</h3>
+        <form id="faqForm">
+            <input type="text" placeholder="Question" id="faqQuestion">
+            <textarea placeholder="Enter answer..." id="faqAnswer" rows="4"></textarea>
+            <input type="submit" value="Add FAQ">
+        </form>
+    </div>
+
+    <div class="widget settings">
+        <h2>Settings & Configuration</h2>
+        <form id="configForm">
+            <input type="text" placeholder="System Name" id="systemName">
+            <input type="text" placeholder="Admin Email" id="adminEmail">
+            <input type="text" placeholder="Support Email" id="supportEmail">
+            <input type="submit" value="Update Configuration">
+        </form>
+        <h3>System Reset</h3>
+        <form id="resetForm">
+            <input type="button" value="Reset System" onclick="resetSystem()">
+        </form>
+    </div>
+</div>
+
+<script>
+    // Placeholder data
+    document.getElementById('serviceRequests').textContent = Math.floor(Math.random() * 20);
+    document.getElementById('revenue').textContent = "$" + Math.floor(Math.random() * 5000);
+    document.getElementById('activeProviders').textContent = Math.floor(Math.random() * 10);
+    document.getElementById('customerFeedback').textContent = (Math.random() * (5 - 3) + 3).toFixed(1) + "/5";
+
+    // Service Management Form
+    document.getElementById('serviceForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+        
+        // Get form values
+        var category = document.getElementById('categoryInput').value;
+        var description = document.getElementById('descriptionInput').value;
+        var price = document.getElementById('priceInput').value;
+        var options = document.getElementById('optionsInput').value;
+        
+        // Display added service
+        alert("New Service Added:\nCategory: " + category + "\nDescription: " + description + "\nPrice: $" + price + "\nOptions: " + options);
+        
+        // Clear form inputs
+        document.getElementById('categoryInput').value = '';
+        document.getElementById('descriptionInput').value = '';
+        document.getElementById('priceInput').value = '';
+        document.getElementById('optionsInput').value = '';
+    });
+
+    // Service Provider Management Form
+    document.getElementById('providerForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+        
+        // Get form values
+        var name = document.getElementById('nameInput').value;
+        var specialization = document.getElementById('specializationInput').value;
+        var email = document.getElementById('emailInput').value;
+        var phone = document.getElementById('phoneInput').value;
+        
+        // Append provider to the list
+        var providerList = document.getElementById('providerList');
+        var newRow = providerList.insertRow();
+        newRow.innerHTML = "<td>" + name + "</td><td>" + specialization + "</td><td>" + email + "</td><td>" + phone + "</td>";
+        
+        // Clear form inputs
+        document.getElementById('nameInput').value = '';
+        document.getElementById('specializationInput').value = '';
+        document.getElementById('emailInput').value = '';
+        document.getElementById('phoneInput').value = '';
+    });
+
+    // Booking Management - Dummy data
+    var bookings = [
+        { user: "Ynw Melly", service: "Plumbing", date: "2024-02-12", time: "09:00 AM", status: "Pending" },
+        { user: "Michael Smith", service: "Electrical", date: "2024-02-15", time: "10:30 AM", status: "Pending" },
+        { user: "Jane Samita", service: "Cleaning", date: "2024-02-18", time: "02:00 PM", status: "Pending" }
+    ];
+
+    // Populate booking list
+    var bookingList = document.getElementById('bookingList');
+    bookings.forEach(function(booking) {
+        var newRow = bookingList.insertRow();
+        newRow.innerHTML = "<td>" + booking.user + "</td><td>" + booking.service + "</td><td>" + booking.date + "</td><td>" + booking.time + "</td><td class='status'>" + booking.status + "</td><td><input type='button' value='Approve' onclick='approveBooking(this)'><input type='button' value='Reject' onclick='rejectBooking(this)'></td>";
+    });
+
+    // Approve booking
+    function approveBooking(button) {
+        var row = button.parentNode.parentNode;
+        var statusCell = row.cells[4];
+        statusCell.textContent = "Approved";
+        statusCell.classList.remove("status");
+        statusCell.style.color = "#00cc00"; // Green color for approved status
+        row.cells[5].innerHTML = ""; // Remove action buttons
+    }
+
+    // Reject booking
+    function rejectBooking(button) {
+        var row = button.parentNode.parentNode;
+        var statusCell = row.cells[4];
+        statusCell.textContent = "Rejected";
+        statusCell.classList.remove("status");
+        statusCell.style.color = "#ff3333"; // Red color for rejected status
+        row.cells[5].innerHTML = ""; // Remove action buttons
+    }
+
+    // Payment Management
+    function handlePayment(method) {
+        alert("Handling payment via " + method);
+    }
+
+    // Review Management - Dummy data
+    var reviews = [
+        { user: "Ynw Melly", rating: 4, comment: "Great service, very professional!" },
+        { user: "Michael Smith", rating: 5, comment: "Excellent experience, highly recommend!" },
+        { user: "Jane Samita", rating: 3, comment: "Good service, but a bit slow." }
+    ];
+
+    // Populate reviews
+    var reviewsContainer = document.getElementById('reviews');
+    reviews.forEach(function(review) {
+        var reviewDiv = document.createElement('div');
+        reviewDiv.classList.add('review');
+        reviewDiv.innerHTML = "<p><strong>" + review.user + " - Rating: " + review.rating + "</strong></p><p>" + review.comment + "</p><div class='response'>Admin Response: Thank you for your feedback!</div><div class='action-buttons'><button onclick='flagReview(this)'>Flag as Inappropriate</button></div>";
+        reviewsContainer.appendChild(reviewDiv);
+    });
+
+    // Flag review as inappropriate
+    function flagReview(button) {
+        button.textContent = "Flagged";
+        button.disabled = true;
+        button.style.backgroundColor = "#ff3333"; // Red color for flagged button
+    }
+
+    // Generate Service Report
+    function generateServiceReport() {
+        alert("Generating Service Report...");
+        // Add your report generation logic here
+    }
+
+    // Generate Revenue Report
+    function generateRevenueReport() {
+        alert("Generating Revenue Report...");
+        // Add your report generation logic here
+    }
+
+    // Generate Feedback Report
+    function generateFeedbackReport() {
+        alert("Generating Feedback Report...");
+        // Add your report generation logic here
+    }
+
+    // Notification System
+    document.getElementById('notificationForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+
+        var message = document.getElementById('notificationMessage').value;
+        var recipientType = document.getElementById('recipientType').value;
+
+        sendNotification(message, recipientType);
+
+        // Clear input field
+        document.getElementById('notificationMessage').value = '';
+    });
+
+    function sendNotification(message, recipientType) {
+        var notificationDiv = document.createElement('div');
+        notificationDiv.classList.add('notification');
+        notificationDiv.textContent = "Notification sent to " + recipientType + ": " + message;
+        document.getElementById('notifications').appendChild(notificationDiv);
+    }
+
+    // Content Management Forms
+    // Update Homepage Form
+    document.getElementById('homepageForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+        var content = document.getElementById('homepageContent').value;
+        // Process the update
+        alert("Homepage content updated:\n" + content);
+    });
+
+    // Create Blog Post/Article Form
+    document.getElementById('blogForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+        var title = document.getElementById('blogTitle').value;
+        var content = document.getElementById('blogContent').value;
+        // Process the creation
+        alert("Blog Post/Article created:\nTitle: " + title + "\nContent: " + content);
+    });
+
+    // Manage FAQs Form
+    document.getElementById('faqForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+        var question = document.getElementById('faqQuestion').value;
+        var answer = document.getElementById('faqAnswer').value;
+        // Process the addition
+        alert("FAQ added:\nQuestion: " + question + "\nAnswer: " + answer);
+    });
+
+    // Configuration Form
+    document.getElementById('configForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+        var systemName = document.getElementById('systemName').value;
+        var adminEmail = document.getElementById('adminEmail').value;
+        var supportEmail = document.getElementById('supportEmail').value;
+        // Process configuration update
+        alert("System Configuration Updated:\nSystem Name: " + systemName + "\nAdmin Email: " + adminEmail + "\nSupport Email: " + supportEmail);
+    });
+
+    // Reset System Function
+    function resetSystem() {
+        if (confirm("Are you sure you want to reset the system? This action cannot be undone.")) {
+            // Perform system reset
+            alert("System reset successful!");
+        }
+    }
+</script>
+
+</body>
+</html>
